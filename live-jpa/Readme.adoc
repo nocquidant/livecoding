@@ -1,0 +1,120 @@
+:numbered:
+
+= Live
+
+Durée approximative 2h30
+
+Remarques :
+
+* Slide Perso
+** #spo = JPA overview
+** #spm = JPA mapping
+* Slide Sigma = TODO
+
+== Ressources
+
+Commencer en pointant les docs Hibernate et JEE7 (javax.persistence)
+
+* http://hibernate.org/orm/documentation/
+* http://docs.oracle.com/javaee/7/api/javax/persistence/package-summary.html
+
+Un bon livre :
+
+* http://www.amazon.com/Pro-JPA-Experts-Voice-Java/dp/1430249269
+
+Divers :
+
+* https://en.wikibooks.org/wiki/Java_Persistence
+* http://www.objectdb.com/java/jpa
+
+== Avant de commencer
+
+* Copier #step1 dans le projet 'current'
+* Copier stapp (la cible = branch jpa) dans D:\Temp
+* Utiliser sublime pour naviguer dans les sources cibles
+
+== Les bases
+
+* Dérouler les #spo3..7
+* Dérouler les #spo13..16
+* Présenter le modèle de données (class-diagram.png) et le code dans current
+
+=== Coder le cas d'une entité simple #step2
+
+* Ajouter un attribut "id" + getter
+* Ajouter les métadonnées @Entity & @Id
+* Persister une entité
+* Oublier volontairement :
+** annotation @GeneratedValue
+** les transactions
+* Ouvrir l'explorateur h2
+* Parler de `hibernate.hbm2ddl.auto`
+* la table est vide ! -> gérer les transactions et les erreurs (rollback)
+* NOTE : transaction pour lecture ET écriture
+* provoquer manuellement une exception
+* NOTE : JPA ne fait pas le ménage dans vos objets si une exception se produit
+
+=== Coder les opérations CRUD #step3
+
+* Note : opérations successives en cloturant l'EM
+* CREATE : déjà fait
+* READ :
+** par l'EM
+* UPDATE :
+** NOTE pas d'appel explicite à persist
+** parler du flush (lieu au moment du commit mais pas obligé, cf plus loin)
+* DELETE : par l'EM
+* Dérouler la #spo27
+
+=== Synchronisation avec la BDD
+
+* Dérouler les #spo28..30
+
+=== L'EM est un "cache" #step4
+
+* Dérouler les #spo31..33
+* NOTE : `System.out.println(p1 == p2); // true`
+* De l'utilité de l'annotation @Version
+** NOTE : colonne en base supplémentaire
+* Le cycle de vie de l'EM != de celui des objets (EM.close => les objets continuent d'exister mais sont détachés)
+
+== Mapping et requêtage
+
+=== Les associations
+
+* 1-1 unidirectionnelle #step5 : Student --> Scholarship
+** NOTE : cascade, cf #spm (mapping)
+** NOTE : de l'importance de `@JoinColumn(unique = true)` pour les OneToOne
+** NOTE : 1-1 est eager par défaut (cf #spm19)
+
+* 1-1 bidirectionnelle : Student <--> Scholarship
+** NOTE : de l'importance du mappedBy
+** NOTE : gérer la bidirectionnalité dans le Java
+
+* 1-N unidirectionnelle (JPA2.0+) #step6 : Student --> ExamResult
+** JPA2+ : `@JoinColumn(referencedColumnName = "id")`
+** NOTE : lazy par défaut #spm19 (évoquer le syndrome du n+1 select plus tard, avec jpql)
+** Aggregation vs Composition #spm18
+** List ou Set ? #spm21
+
+* N-M unidirectionnelle : Student --> Course
+** Pointer vers les URL
+
+=== Les langages de requête
+
+* JPQL : #spm22..27
+
+* Example simple (Student uniquement) #step4
+** NOTE : Hibernate part systématiquement à la base sur un 'select all' (donc le fetch n'a pas lieu qu'au commit de la tx)
+
+* Example 1-N (Student et ExamResult uniquement) #step7
+** NOTE : Syndrome du N+1 select -> join fetch
+
+== Mise en situation, application 'stapp'
+
+* Architecture #spo34..43
+
+* Présenter la branche jdbc de 'stapp' et commencer la migration vers JPA
+* Créer une classe EntityManagerUtil utilisée dans AppContextListener
+* Créer un peuplement JPA : Populator.populateJpa() à l'image d'un service
+* Reprendre les couches DAO et Service (plus besoin de BaseService)

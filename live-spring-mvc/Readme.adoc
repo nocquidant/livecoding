@@ -1,0 +1,91 @@
+:numbered:
+
+= Live
+
+Durée approximative 3h00
+
+Remarques :
+
+* Slide Perso = #slidper
+* Slide Sigma = #slidsig
+
+== Ressources
+
+Commencer en pointant les docs Spring
+
+* http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
+* http://docs.spring.io/spring/docs/current/javadoc-api/
+
+Un bon livre :
+
+* http://www.amazon.com/Spring-Action-Craig-Walls/dp/161729120X
+
+== Les bases (#slidper Spring_Core)
+
+* Dérouler les #slidper1..6
+
+=== Coder un système de réservation
+
+* Présenter le système de reservation avec le couplage fort (#step1)
+* Le besoin change ! -> notification par Sms (step2).
+** Coder la nelle implementation.
+** NB : en vrai le besoin change souvent
+* Comment réduire ce couplage (#step3)
+** créer une interface
+** faire le 'new' dans une classe 'Programme'
+* Dérouler les #slidper12..13
+* Présenter le test avec mock (bénéfice DI)
+* DI partout ? dérouler #slidper15
+
+=== Spring
+
+==== Injecter des dépendances
+
+* DI est à la base de Spring, = un conteneur de beans cf. #slidper23
+* Mais eco-système large cf. #slidper25
+* Définir et cabler les beans du système de réservation (en C/P depuis #slidper27 et suivantes) #step4
+* Notes :
+** Les beans sont tissés au démarrage de l'application
+** Les beans doivent être demandés à Spring et non pas 'new'
+** Singleton par défaut, cf. #slidper30..31
+
+==== Appliquer des Aspects
+
+* C'est quoi un Aspect ? dérouler les #slidper16..17
+* Coder un traceur #step5 C/P depuis #slidper18
+** Commencer par un component Spring
+** Le transformer en Aspect
+* Terminologie des Aspect #slidper35
+
+==== Utiliser les classes template
+
+* Montrer des exemples de JDBCTemplate
+http://docs.spring.io/spring/docs/current/spring-framework-reference/html/jdbc.html
+
+=== Construire une app d'entreprise avec Spring (#slidper Spring_AppEssentials)
+
+Dérouler la #slidper2 puis coder live sur application 'stapp'
+
+Sans considérer la couche web (ApplicationStappSimpleUI qui appelle les services)
+
+* Ajout de la dépendance spring-orm dans le pom.xml
+* Creation de CoreConfig
+** Configuration de la DataSource JDBC #slidper5..8
+** Configuration de l'EMF JPA #slidper14
+* Reprendre les couches DAO et Service
+** Ajouter 'em' via l'annotation @EntityManager
+** NB : l'EM est associé à la tx courante
+* Les transactions #slidper16..18 + #slidper20
+** Coder
+** propagation des tx #slidper22
+** demarcation des tx #slidper23
+** évoquer le readOnly ?
+* Creer un populator se basant sur ApplicationListener et utilisant un DAO (laisser au même endroit)
+* Supprimer l'ancien populator et le WebListener
+* Evoquer @Repository et @Service
+
+En considérant la couche web (si dans les temps..)
+
+* Les abstractions de SpringMVC #slidper25..26
+* La configuration de SpringMVC #slidper27..30
+* Reprendre la couche controller

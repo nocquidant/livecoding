@@ -1,0 +1,39 @@
+:numbered:
+
+= Live
+
+Durée approximative 20 minutes
+
+Remarques :
+
+* Slide Perso = #slidper
+* Slide Sigma = #slidsig
+
+== Ressources
+
+NA
+
+== HTTP
+
+* Rappels des principes http : dérouler les #slidper2..6
+
+* Coder une servlet 'hello'
+** Appeler la servlet
+** Observer les requêtes (request/response) dans chrome
+
+* Coder une servlet 'operations' avec 2 paramètres de requêtes pour 'add'
+** Appeler la servlet
+** Coder une méthode addToPrevious et aborder le sans état
+
+* Coder une servlet 'authent' avec une méthode POST
+** Appeler la servlet avec postman
+** Observer les requêtes
+** Différences GET vs POST #slidper7
+
+== JavaSE vs JavaEE
+
+* Rappels des différences JavaSE vs JavaEE #slidper8
+
+== Architecture
+
+* Rappels de l'architecture en couches #slidper9
