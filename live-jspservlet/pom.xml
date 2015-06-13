@@ -9,7 +9,14 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>live-servlet</artifactId>
+  <artifactId>live-jspservlet</artifactId>
 
+  <dependencies>
+    <dependency>
+      <groupId>livecoding</groupId>
+      <artifactId>live-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
 
 </project>

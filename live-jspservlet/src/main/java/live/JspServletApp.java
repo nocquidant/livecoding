@@ -2,9 +2,9 @@ package live;
 
 import live.config.Launcher;
 
-public class IntroApp {
+public class JspServletApp {
 
   public static void main(String[] args) {
-    Launcher.startTomcat();
+    Launcher.startTomcat("live-jspservlet/");
   }
 }

@@ -9,6 +9,8 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>live-java8</module>
+    <module>live-jspservlet</module>
+    <module>live-common</module>
   </modules>
   <packaging>pom</packaging>
 
