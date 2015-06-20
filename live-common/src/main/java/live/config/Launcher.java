@@ -66,7 +66,7 @@ public class Launcher {
 
   // We almost disable jarscan as we stay in the IDE
   static class TomcatWithFastStartup extends org.apache.catalina.startup.Tomcat {
-    private Pattern[] allowedPatterns = new Pattern[] { Pattern.compile("jstl.*"), Pattern.compile("spring-web.*") };
+    private Pattern[] allowedPatterns = new Pattern[]{Pattern.compile("jstl.*"), Pattern.compile("spring-web.*")};
 
     @Override
     public void start() throws LifecycleException {
